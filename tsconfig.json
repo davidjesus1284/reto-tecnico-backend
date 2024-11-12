@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "CommonJS",
+    "outDir": "dist",
+    "rootDir": "src",
+    "strict": false,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "typeRoots": ["node_modules/@types"],
+    "types": ["node", "aws-lambda"],
+    "experimentalDecorators": true
+  },
+  "include": ["src/**/*.ts", "src/db/data-source.ts"],
+}

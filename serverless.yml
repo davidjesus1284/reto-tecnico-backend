@@ -1,0 +1,33 @@
+service: test-trabajo
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  region: us-east-1
+
+plugins:
+  - serverless-offline
+  - serverless-dotenv-plugin
+
+functions:
+  getDataSwarApi:
+    handler: src/handlers/handler.getDataSwarApi
+    events:
+      - http:
+          path: data/swarapi
+          method: get
+
+  createData:
+    handler: src/handlers/handler.createData
+    events:
+      - http:
+          path: data/load/user
+          method: post
+          cors: true
+  
+  getListUsers:
+    handler: src/handlers/handler.getListUsers
+    events:
+      - http:
+          path: data/users
+          method: get
