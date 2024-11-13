@@ -36,8 +36,15 @@ Este proyecto crea una API serverless que se puede desplegar en plataformas como
    ```
 
 4. **Iniciar localmente** con Serverless Offline:
+
    ```bash
    serverless offline start
+   ```
+
+5. **Correr migraciones**:
+
+   ```bash
+   npm run migrations:run
    ```
 
 # Pruebas de la API Local
