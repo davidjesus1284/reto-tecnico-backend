@@ -47,6 +47,9 @@ Este proyecto crea una API serverless que se puede desplegar en plataformas como
    npm run migrations:run
    ```
 
+6. **Url base para api**:
+   [https://swapi.py4e.com/api/](https://swapi.py4e.com/api/)
+
 # Pruebas de la API Local
 
 Puedes probar la API localmente en las siguientes URLs:
