@@ -2,6 +2,7 @@ import { DataSource } from "typeorm";
 import { ICreateUserPayload } from "../interfaces/create-user-payload.interface";
 import { UserEntity } from "../entities/user.entity";
 import { APIGatewayProxyResult } from "aws-lambda";
+import { TranslatedObject } from "../types/object-translate.type";
 
 export class UserService {
   constructor(private readonly dataSource: DataSource) {}
@@ -14,11 +15,12 @@ export class UserService {
       const userRepository = this.dataSource.getRepository(UserEntity);
       const user = userRepository.create(payload);
       await userRepository.save(user);
+      const userTranslated = this.translateKeysToSpanish(user);
       return {
         statusCode: 201,
         body: JSON.stringify({
           message: "User created successfully",
-          data: user,
+          data: userTranslated,
         }),
       };
     } catch (error) {
@@ -39,11 +41,14 @@ export class UserService {
       const users = await userRepository.manager
         .createQueryBuilder(UserEntity, "user")
         .getMany();
+      const usersTranslate = users.map((user) =>
+        this.translateKeysToSpanish(user)
+      );
       return {
         statusCode: 201,
         body: JSON.stringify({
           message: "User list generate",
-          data: users,
+          data: usersTranslate,
         }),
       };
     } catch (error) {
@@ -65,11 +70,12 @@ export class UserService {
         .createQueryBuilder(UserEntity, "user")
         .where("user.id = :id", { id })
         .getOne();
+      const userTranslated = this.translateKeysToSpanish(user);
       return {
         statusCode: 201,
         body: JSON.stringify({
           message: "User found successfully",
-          data: user,
+          data: userTranslated,
         }),
       };
     } catch (error) {
@@ -81,5 +87,30 @@ export class UserService {
     } finally {
       await this.dataSource.destroy();
     }
+  }
+
+  private translateKeysToSpanish(obj: any) {
+    const newTranslated: TranslatedObject = {};
+    const translated = this.translated();
+
+    for (const key in obj) {
+      if (key in translated) {
+        const newKey = translated[key];
+        newTranslated[newKey] = obj[key];
+      } else {
+        newTranslated[key] = obj[key];
+      }
+    }
+
+    return newTranslated;
+  }
+
+  private translated() {
+    const translations: { [key: string]: string } = {
+      name: "nombre",
+      email: "correo",
+    };
+
+    return translations;
   }
 }
