@@ -4,7 +4,7 @@ import { UserService } from "../services/user.service";
 import { AppDataSource } from "../db/data-source";
 
 const service = new ServiceSwarApi();
-
+const userService = new UserService(AppDataSource);
 export const getDataSwarApi = async (): Promise<APIGatewayProxyResult> => {
   const { data, status } = await service.getData();
   return {
@@ -17,11 +17,14 @@ export const createData = async (
   event: APIGatewayEvent
 ): Promise<APIGatewayProxyResult> => {
   const body = JSON.parse(event.body || "{}");
-  const userService = new UserService(AppDataSource);
   return userService.createUser(body);
 };
 
 export const getListUsers = async () => {
-  const userService = new UserService(AppDataSource);
   return userService.getListUser();
+};
+
+export const getUser = async (event: APIGatewayEvent) => {
+  const { id } = event.pathParameters || {};
+  return userService.getUserById(id);
 };

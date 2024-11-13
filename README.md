@@ -45,9 +45,10 @@ Este proyecto crea una API serverless que se puede desplegar en plataformas como
 Puedes probar la API localmente en la siguiente URL:
 
 - **Endpoint de prueba**:  
-  `http://localhost:3000/dev/data/swarapi`
-  `http://localhost:3000/dev/data/load/user`
-  `http://localhost:3000/dev/data/users`
+  Get: `http://localhost:3000/dev/data/swarapi`
+  Post: `http://localhost:3000/dev/data/load/user`
+  Get: `http://localhost:3000/dev/data/users`
+  Get: `http://localhost:3000/dev/data/users/4`
 
 A continuación se muestra un ejemplo de un objeto JSON que puede ser utilizado en el endpoint de la API para crear usuarios:
 

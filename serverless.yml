@@ -32,3 +32,10 @@ functions:
       - http:
           path: data/users
           method: get
+  
+  getUser:
+    handler: src/handlers/handler.getUser
+    events:
+      - http:
+          path: data/users/{id}
+          method: get
