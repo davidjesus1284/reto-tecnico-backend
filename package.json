@@ -4,6 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch",
     "migrations:revert": "ts-node -r tsconfig-paths/register node_modules/typeorm/cli.js migration:revert -d src/db/cli.ts",
     "migrations:run": "ts-node -r tsconfig-paths/register node_modules/typeorm/cli.js migration:run -d src/db/cli.ts",
     "migrations:generate": "func() { ts-node -r tsconfig-paths/register node_modules/typeorm/cli.js migration:generate -d src/db/cli.ts src/migrations/\"$1\";}; func"
@@ -23,7 +25,10 @@
   },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.145",
+    "@types/jest": "^29.5.14",
+    "jest": "^29.7.0",
     "serverless-dotenv-plugin": "^6.0.0",
+    "ts-jest": "^29.2.5",
     "ts-node": "^10.9.2"
   }
 }

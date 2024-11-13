@@ -2,6 +2,7 @@ service: test-trabajo
 
 provider:
   name: aws
+  stage: dev
   runtime: nodejs20.x
   region: us-east-1
 

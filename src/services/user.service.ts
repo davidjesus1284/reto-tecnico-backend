@@ -1,21 +1,17 @@
 import { DataSource } from "typeorm";
-import { AppDataSource } from "../db/data-source";
 import { ICreateUserPayload } from "../interfaces/create-user-payload.interface";
 import { UserEntity } from "../entities/user.entity";
 import { APIGatewayProxyResult } from "aws-lambda";
 
 export class UserService {
-  private readonly dataSource: DataSource;
-  constructor() {
-    this.dataSource = AppDataSource;
-  }
+  constructor(private readonly dataSource: DataSource) {}
 
   public async createUser(
     payload: ICreateUserPayload
   ): Promise<APIGatewayProxyResult> {
     try {
       await this.dataSource.initialize();
-      const userRepository = AppDataSource.getRepository(UserEntity);
+      const userRepository = this.dataSource.getRepository(UserEntity);
       const user = userRepository.create(payload);
       await userRepository.save(user);
       return {
@@ -32,14 +28,14 @@ export class UserService {
         body: JSON.stringify({ message: "Internal server error" }),
       };
     } finally {
-      await AppDataSource.destroy();
+      await this.dataSource.destroy();
     }
   }
 
   public async getListUser(): Promise<APIGatewayProxyResult> {
     try {
       await this.dataSource.initialize();
-      const userRepository = AppDataSource.getRepository(UserEntity);
+      const userRepository = this.dataSource.getRepository(UserEntity);
       const users = await userRepository.manager
         .createQueryBuilder(UserEntity, "user")
         .getMany();
@@ -57,7 +53,7 @@ export class UserService {
         body: JSON.stringify({ message: "Internal server error" }),
       };
     } finally {
-      await AppDataSource.destroy();
+      await this.dataSource.destroy();
     }
   }
 }
