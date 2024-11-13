@@ -40,15 +40,43 @@ Este proyecto crea una API serverless que se puede desplegar en plataformas como
    serverless offline start
    ```
 
-## URL para probar la API
+# Pruebas de la API Local
 
-Puedes probar la API localmente en la siguiente URL:
+Puedes probar la API localmente en las siguientes URLs:
 
-- **Endpoint de prueba**:  
-  Get: `http://localhost:3000/dev/data/swarapi`
-  Post: `http://localhost:3000/dev/data/load/user`
-  Get: `http://localhost:3000/dev/data/users`
-  Get: `http://localhost:3000/dev/data/users/4`
+## Endpoints de la API
+
+### 1. Obtener datos
+
+- **GET** `/dev/data/swarapi`  
+  Obtiene la información general de la API.
+
+  URL de prueba:  
+  [http://localhost:3000/dev/data/swarapi](http://localhost:3000/dev/data/swarapi)
+
+### 2. Cargar usuario
+
+- **POST** `/dev/data/load/user`  
+  Carga un nuevo usuario en la base de datos.
+
+  URL de prueba:  
+  [http://localhost:3000/dev/data/load/user](http://localhost:3000/dev/data/load/user)
+
+### 3. Obtener lista de usuarios
+
+- **GET** `/dev/data/users`  
+  Obtiene la lista completa de usuarios.
+
+  URL de prueba:  
+  [http://localhost:3000/dev/data/users](http://localhost:3000/dev/data/users)
+
+### 4. Obtener usuario por ID
+
+- **GET** `/dev/data/users/{id}`  
+  Obtiene la información de un usuario específico por su ID.
+
+  URL de prueba (ejemplo con `id = 4`):  
+  [http://localhost:3000/dev/data/users/4](http://localhost:3000/dev/data/users/4)
 
 A continuación se muestra un ejemplo de un objeto JSON que puede ser utilizado en el endpoint de la API para crear usuarios:
 
